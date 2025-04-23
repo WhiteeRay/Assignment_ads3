@@ -4,9 +4,9 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Stack;
 
-public class BST<K extends Comparable<K>, V> {
+public class BST<K extends Comparable<K>, V> implements Iterable<BST.KeyValuePair<K, V>> {
     private Node root;
-
+    private int size;
 
     private class Node {
         private K key;
@@ -19,11 +19,14 @@ public class BST<K extends Comparable<K>, V> {
         }
     }
 
-
+    public BST() {
+        size = 0;
+    }
 
     public void put(K key, V value) {
         if (root == null) {
             root = new Node(key, value);
+            size++;
             return;
         }
         Node current = root;
@@ -46,9 +49,14 @@ public class BST<K extends Comparable<K>, V> {
                 }
             } else {
                 current.value = value;
-                return;
+
             }
+            return;
         }
+    }
+
+    public int getSize(){
+        return size;
     }
 
     public V get(K key) {
@@ -124,10 +132,14 @@ public class BST<K extends Comparable<K>, V> {
 
     }
 
-    public Iterator<K> iterator() {
-        return new Iterator<K>() {
+    public Iterator<KeyValuePair<K,V>> iterator() {
+        return new Iterator<>() {
             private Stack<Node> stack = new Stack<>();
             private Node current = root;
+
+            {
+                pushLeft(root);
+            }
 
 
             private void pushLeft(Node node) {
@@ -143,7 +155,7 @@ public class BST<K extends Comparable<K>, V> {
             }
 
             @Override
-            public K next() {
+            public KeyValuePair<K, V> next() {
                 if (!hasNext()) {
                     throw new NoSuchElementException();
                 }
@@ -154,10 +166,28 @@ public class BST<K extends Comparable<K>, V> {
                 if (node.right != null) {
                     pushLeft(node.right);
                 }
-                return key;
+                return new KeyValuePair<>(node.key, node.value);
             }
 
         };
 
+    }
+
+    public static class KeyValuePair<K, V>{
+        private final K key;
+        private final V value;
+
+        public KeyValuePair(K key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        public K getKey() {
+            return key;
+        }
+
+        public V getValue() {
+            return value;
+        }
     }
 }
