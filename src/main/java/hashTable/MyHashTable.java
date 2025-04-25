@@ -1,7 +1,7 @@
 package hashTable;
 
 public class MyHashTable<K, V> {
-    private class HashNode<K, V> {
+    public class HashNode<K, V> {
         private K key;
         private V value;
         private HashNode<K, V> next;
@@ -36,6 +36,10 @@ public class MyHashTable<K, V> {
         hashArray = new HashNode[M];
         size = 0;
 
+    }
+
+    public HashNode<K, V>[] getHashArray(){
+        return hashArray;
     }
 
     public int getBucketCount() {
