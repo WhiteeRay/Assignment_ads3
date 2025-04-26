@@ -9,6 +9,7 @@ public class MyHashTable<K, V> {
         public HashNode(K key, V value) {
             this.key = key;
             this.value = value;
+            this.next=null;
         }
 
         public HashNode<K, V> getNext() {
@@ -27,13 +28,17 @@ public class MyHashTable<K, V> {
     private int size;
 
     public MyHashTable() {
-        hashArray = new HashNode[M];
+        hashArray = (HashNode<K, V>[]) new HashNode[M];
         size = 0;
     }
+    public int size() {
+        return size;
+    }
+
 
     public MyHashTable(int M) {
         this.M = M;
-        hashArray = new HashNode[M];
+        hashArray = (HashNode<K, V>[]) new HashNode[M];
         size = 0;
 
     }
@@ -57,6 +62,7 @@ public class MyHashTable<K, V> {
         while (currentNode != null) {
             if (currentNode.key.equals(key)) {
                 currentNode.value = value;
+                return;
             }
             currentNode = currentNode.next;
         }
