@@ -6,6 +6,8 @@ public class Main {
         BST<Integer, String> tree = new BST<>();
         tree.put(13, "A");
         tree.put(12, "B");
+        tree.put(25, "C");
+        tree.put(5, "D");
 
 
         for (var elem : tree) {

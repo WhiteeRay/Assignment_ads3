@@ -20,13 +20,7 @@ public class MyHashTableTest
         }
 
         for (int i = 0; i < table.getBucketCount(); i++) {
-            int count = 0;
-            MyHashTable<MyTestingClass, Student>.HashNode<MyTestingClass, Student> current = table.getHashArray()[i];
-            while (current != null) {
-                count++;
-                current = current.getNext();
-            }
-            System.out.println("Bucket " + i + ": " + count + " elements");
+            System.out.println("Bucket " + i + ": " + table.getBucketSize(i) + " elements");
         }
     }
 

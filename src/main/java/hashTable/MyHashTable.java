@@ -1,7 +1,7 @@
 package hashTable;
 
 public class MyHashTable<K, V> {
-    public class HashNode<K, V> {
+    private class HashNode<K, V> {
         private K key;
         private V value;
         private HashNode<K, V> next;
@@ -11,6 +11,7 @@ public class MyHashTable<K, V> {
             this.value = value;
             this.next=null;
         }
+
 
         public HashNode<K, V> getNext() {
             return next;
@@ -35,6 +36,15 @@ public class MyHashTable<K, V> {
         return size;
     }
 
+    public int getBucketSize(int index) {
+        int count = 0;
+        HashNode<K, V> current = hashArray[index];
+        while (current != null) {
+            count++;
+            current = current.next;
+        }
+        return count;
+    }
 
     public MyHashTable(int M) {
         this.M = M;
